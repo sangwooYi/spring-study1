@@ -1,6 +1,7 @@
 package hello.core;
 
 import hello.core.discount.DiscountPolicy;
+import hello.core.discount.FixDiscountPolicy;
 import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemberService;
@@ -9,6 +10,7 @@ import hello.core.member.MemoryMemberRepository;
 import hello.core.order.OrderService;
 import hello.core.order.OrderServiceImpl;
 
+// 이렇게 분리를 해준 덕분에 Client 쪽을 건드릴 필요가 없어짐! ( DIP 원칙 준수 가능 )
 public class AppConfig {
 
     // 싱글톤으로 혹시 만들거면
@@ -28,7 +30,6 @@ public class AppConfig {
         this.orderService = this.orderService();
 
     }
-
 
     public MemberService memberService() {
         if (memberService == null) {
@@ -53,7 +54,9 @@ public class AppConfig {
 
     public DiscountPolicy discountPolicy() {
         if (discountPolicy == null) {
+            // 이제 만약에 구현체가 바뀌면 이렇게 AppConfig쪽만 바꿔주면 된다.
             return new RateDiscountPolicy();
+            //return new FixDiscountPolicy();
         }
         return discountPolicy;
     }
