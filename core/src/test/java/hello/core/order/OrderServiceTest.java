@@ -31,4 +31,6 @@ public class OrderServiceTest {
         Assertions.assertThat(order.calculatePrice()).isEqualTo(90000);
 
     }
+
+
 }

@@ -1,9 +1,11 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,10 +15,14 @@ public class OrderServiceImpl implements OrderService{
     // 의존성 주입 방식 : 생성자 주입 / setter 주입 / 필드 주입  ( 왠만하면 생성자 주입으로! )
     // 이게 가능한것이 다형성 덕분에 ( 모든 자식클래스는 부모클래스로 변환이 가능하다는 것 )
     private final MemberRepository memberRepository; // 멤버정보
-    private DiscountPolicy discountPolicy;
+    private final DiscountPolicy discountPolicy;
 
+
+    // 생성자 주입 방식의 장점
+    // 불변 보장, + 필드를 final로 세팅할 수 있다. <= final의 장점. 초기화가 강제되므로 초기화 누락을 잡아 낼 수 있다!
+    // 단위 테스트도 용이하고 안전하다.       // @MainDiscountPolicy DiscountPolicy discountPolicy
     @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }

@@ -18,8 +18,10 @@ public class AutoAppConfigTest {
 
     @Test
     void basicScan(){
+
+        // @Qualifier 는 이부분에서 빈 컨테이너 주입 시 우선순위 설정이 가능하도록 해주는 부분!
         ApplicationContext ac = new AnnotationConfigApplicationContext(AutoAppConfig.class);
-        // @SpringBootApplication 에 @CommponentScan이 걸려있다! 따라서 사실 그냥 별도로 Config 클래스 없어도 됨!
+        // @SpringBootApplication 에 @ComponentScan이 걸려있다! 따라서 사실 그냥 별도로 Config 클래스 없어도 됨!
         //ApplicationContext ac = new AnnotationConfigApplicationContext(CoreApplication.class);
         String[] beanKeys = ac.getBeanDefinitionNames();
         for (String key : beanKeys) {
@@ -27,7 +29,10 @@ public class AutoAppConfigTest {
 
         }
         MemberService memberService = ac.getBean(MemberService.class);
-        DiscountPolicy discountPolicy = ac.getBean(DiscountPolicy.class);
+
+        // @Qualifier 만으로는 이렇게 getBean 할때 해결이 안된다.
+        // 이때는 이름으로 꺼내줘야 함! ac.getBean(DiscountPolicy.class); 만 쓰면 빈 중복 에러 남! (당연한 것! )
+        DiscountPolicy discountPolicy = ac.getBean("rateDiscountPolicy", DiscountPolicy.class);
 
         Assertions.assertThat(memberService).isInstanceOf(MemberService.class);
 
