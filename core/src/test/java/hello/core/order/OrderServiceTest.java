@@ -22,6 +22,12 @@ public class OrderServiceTest {
         memberService.join(member);
 
         Order order = orderService.createOrder(memberId, "itemA", 100000);
+        
+        // 자주 쓰이는 애들
+        // isEqualTo
+        // isSameAs
+        // isNotSameAs
+        // isInstanceOf
         Assertions.assertThat(order.calculatePrice()).isEqualTo(90000);
 
     }
