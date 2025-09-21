@@ -25,5 +25,6 @@ public class MemberTestApp {
 
         System.out.println("findMember Name : " + testMember3.getName());
         System.out.println("findMember find Name : " + fMember.getName());
+        System.out.println("findMember find Name : " + "ㅁaa");
     }
 }

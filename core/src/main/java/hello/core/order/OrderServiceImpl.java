@@ -3,7 +3,10 @@ package hello.core.order;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class OrderServiceImpl implements OrderService{
 
     // 따라서 이렇게 인스턴스명까지만 선언 후, {의존성을 주입}하는 방식으로 가야 아래와 같이 클라이언트를 수정하는 문제가 사라짐
@@ -12,7 +15,7 @@ public class OrderServiceImpl implements OrderService{
     private final MemberRepository memberRepository; // 멤버정보
     private DiscountPolicy discountPolicy;
 
-
+    @Autowired
     public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
