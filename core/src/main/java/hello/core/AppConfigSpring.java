@@ -47,7 +47,6 @@ public class AppConfigSpring {
 
         return new OrderServiceImpl(memberRepository(), discountPolicy());
     }
-
     @Bean
     public DiscountPolicy discountPolicy() {
         return new RateDiscountPolicy();
